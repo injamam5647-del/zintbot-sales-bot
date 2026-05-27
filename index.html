@@ -10,9 +10,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#040812;font-family:'Trebuchet MS',sans-serif;color:#e2e8f0}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(251,191,36,0.3);border-radius:4px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(251,191,36,0.3);border-radius:4px}
 @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
@@ -22,103 +20,115 @@ body{background:#040812;font-family:'Trebuchet MS',sans-serif;color:#e2e8f0}
 @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 @keyframes rankIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
 @keyframes crownBounce{0%,100%{transform:scale(1) rotate(-5deg)}50%{transform:scale(1.2) rotate(5deg)}}
+@keyframes typing{0%,100%{opacity:0.3}50%{opacity:1}}
 .tab-btn:hover{background:rgba(251,191,36,0.15)!important}
 .quick-btn:hover{background:rgba(251,191,36,0.2)!important;transform:translateY(-1px)}
 .prod-card:hover{border-color:rgba(251,191,36,0.5)!important;transform:translateY(-2px);box-shadow:0 8px 24px rgba(251,191,36,0.1)!important}
-.send-btn:hover{transform:scale(1.05)}
-input::placeholder{color:#475569}
-input{outline:none}
+input{outline:none}input::placeholder{color:#475569}
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { useState, useRef, useEffect } = React;
+const{useState,useRef,useEffect}=React;
 
-const PRODUCTS = [
-  { id:1, name:"ProMax CRM Suite", price:"₹4,999/mo", category:"Software", emoji:"💼", desc:"Complete CRM for growing businesses" },
-  { id:2, name:"AI Analytics Dashboard", price:"₹2,499/mo", category:"Analytics", emoji:"📊", desc:"Real-time insights powered by AI" },
-  { id:3, name:"CloudStore Pro", price:"₹999/mo", category:"Storage", emoji:"☁️", desc:"Unlimited secure cloud storage" },
-  { id:4, name:"SmartMail Campaigns", price:"₹1,499/mo", category:"Marketing", emoji:"📧", desc:"AI-driven email marketing platform" },
-  { id:5, name:"SecureShield Enterprise", price:"₹3,299/mo", category:"Security", emoji:"🔒", desc:"End-to-end cybersecurity solution" },
-  { id:6, name:"TeamSync Collaboration", price:"₹799/mo", category:"Productivity", emoji:"🤝", desc:"All-in-one team workspace" },
+const PRODUCTS=[
+  {id:1,name:"ProMax CRM Suite",price:"₹4,999/mo",category:"Software",emoji:"💼",desc:"Complete CRM for growing businesses"},
+  {id:2,name:"AI Analytics Dashboard",price:"₹2,499/mo",category:"Analytics",emoji:"📊",desc:"Real-time insights powered by AI"},
+  {id:3,name:"CloudStore Pro",price:"₹999/mo",category:"Storage",emoji:"☁️",desc:"Unlimited secure cloud storage"},
+  {id:4,name:"SmartMail Campaigns",price:"₹1,499/mo",category:"Marketing",emoji:"📧",desc:"AI-driven email marketing platform"},
+  {id:5,name:"SecureShield Enterprise",price:"₹3,299/mo",category:"Security",emoji:"🔒",desc:"End-to-end cybersecurity solution"},
+  {id:6,name:"TeamSync Collaboration",price:"₹799/mo",category:"Productivity",emoji:"🤝",desc:"All-in-one team workspace"},
 ];
 
-const PRIZE_LIST = [
-  { rank:1, name:"Injamam", badge:"🏆", prize:"₹1,20,000 + PPO", score:9850, tag:"Champion", color:"#FFD700" },
-  { rank:2, name:"Aryan Sharma", badge:"🥈", prize:"₹80,000", score:9210, tag:"Runner Up", color:"#C0C0C0" },
-  { rank:3, name:"Priya Menon", badge:"🥉", prize:"₹50,000", score:8760, tag:"2nd Runner Up", color:"#CD7F32" },
-  { rank:4, name:"Rahul Verma", badge:"⭐", prize:"₹15,000", score:8100, tag:"Top 10", color:"#4ade80" },
-  { rank:5, name:"Sneha Patel", badge:"⭐", prize:"₹15,000", score:7890, tag:"Top 10", color:"#4ade80" },
-  { rank:6, name:"Dev Anand", badge:"⭐", prize:"₹10,000", score:7450, tag:"Top 10", color:"#4ade80" },
-  { rank:7, name:"Fatima Khan", badge:"⭐", prize:"₹10,000", score:7200, tag:"Top 10", color:"#4ade80" },
-  { rank:8, name:"Rohan Das", badge:"⭐", prize:"Certificate", score:6980, tag:"Top 10", color:"#4ade80" },
-  { rank:9, name:"Aisha Nair", badge:"⭐", prize:"Certificate", score:6750, tag:"Top 10", color:"#4ade80" },
-  { rank:10, name:"Vikram Singh", badge:"⭐", prize:"Certificate", score:6500, tag:"Top 10", color:"#4ade80" },
+const PRIZE_LIST=[
+  {rank:1,name:"Injamam",badge:"🏆",prize:"₹1,20,000 + PPO",score:9850,tag:"Champion",color:"#FFD700"},
+  {rank:2,name:"Aryan Sharma",badge:"🥈",prize:"₹80,000",score:9210,tag:"Runner Up",color:"#C0C0C0"},
+  {rank:3,name:"Priya Menon",badge:"🥉",prize:"₹50,000",score:8760,tag:"2nd Runner Up",color:"#CD7F32"},
+  {rank:4,name:"Rahul Verma",badge:"⭐",prize:"₹15,000",score:8100,tag:"Top 10",color:"#4ade80"},
+  {rank:5,name:"Sneha Patel",badge:"⭐",prize:"₹15,000",score:7890,tag:"Top 10",color:"#4ade80"},
+  {rank:6,name:"Dev Anand",badge:"⭐",prize:"₹10,000",score:7450,tag:"Top 10",color:"#4ade80"},
+  {rank:7,name:"Fatima Khan",badge:"⭐",prize:"₹10,000",score:7200,tag:"Top 10",color:"#4ade80"},
+  {rank:8,name:"Rohan Das",badge:"⭐",prize:"Certificate",score:6980,tag:"Top 10",color:"#4ade80"},
+  {rank:9,name:"Aisha Nair",badge:"⭐",prize:"Certificate",score:6750,tag:"Top 10",color:"#4ade80"},
+  {rank:10,name:"Vikram Singh",badge:"⭐",prize:"Certificate",score:6500,tag:"Top 10",color:"#4ade80"},
 ];
 
-const SYSTEM_PROMPT = `You are ZintBot, an expert AI Sales Assistant for ZintTech Solutions. Your job is to engage customers warmly, understand their business needs, and recommend the best products.
+// Smart AI Demo Responses
+const DEMO_RESPONSES=[
+  "Great question! 👋 I'm ZintBot, your AI sales advisor. To give you the best recommendation, tell me — what's your team size and what's your biggest business challenge right now?",
+  "Interesting! Based on what you've shared, I'd recommend our **ProMax CRM Suite** at just ₹4,999/mo. It's helped 500+ businesses increase sales by 40%. Want to try it FREE for 14 days? 🚀",
+  "Smart choice! Our **AI Analytics Dashboard** gives you real-time insights that help you make data-driven decisions instantly. Most clients see ROI within 30 days. Ready to get started? 📊",
+  "I totally understand the budget concern! That's exactly why we offer a **14-day free trial** — no credit card needed. Plus, annual plans get **20% OFF**. That's a saving of ₹12,000/year! 💰",
+  "Absolutely! Our **TeamSync Collaboration** at just ₹799/mo is perfect for growing teams. It includes unlimited workspaces, video calls, and AI task management. Over 10,000 teams use it! 🤝",
+  "Great news! We can set you up with a **personalized demo** today. Our onboarding team will walk you through everything in just 20 minutes. Shall I book a slot for you? 📅",
+  "You're making the right decision! 🎉 Our **SmartMail Campaigns** platform has an average open rate of 45% — 3x industry standard. Want to see how your competitors are losing customers? 📧",
+  "Security is critical! **SecureShield Enterprise** provides 256-bit encryption, real-time threat monitoring, and compliance with all major standards. Zero breaches across 1,000+ clients! 🔒",
+];
 
-PRODUCTS: ProMax CRM Suite (₹4,999/mo), AI Analytics Dashboard (₹2,499/mo), CloudStore Pro (₹999/mo), SmartMail Campaigns (₹1,499/mo), SecureShield Enterprise (₹3,299/mo), TeamSync Collaboration (₹799/mo).
+let demoIndex=0;
+const getDemoResponse=(msg)=>{
+  const m=msg.toLowerCase();
+  if(m.includes("crm")||m.includes("customer")) return"Perfect timing! Our **ProMax CRM Suite** (₹4,999/mo) is exactly what you need. It tracks every customer interaction, automates follow-ups, and boosts conversion by 35%. Want a **FREE 14-day trial**? No credit card required! 💼";
+  if(m.includes("price")||m.includes("cost")||m.includes("pricing")) return"Great question on pricing! Here's our value lineup:\n\n💼 CRM Suite — ₹4,999/mo\n📊 Analytics — ₹2,499/mo\n☁️ CloudStore — ₹999/mo\n📧 SmartMail — ₹1,499/mo\n\nAll plans include **14-day free trial** + **20% off** on annual! Which fits your budget? 💰";
+  if(m.includes("analytic")||m.includes("data")||m.includes("insight")) return"Our **AI Analytics Dashboard** (₹2,499/mo) is a game-changer! Real-time dashboards, predictive AI insights, and custom reports. Clients average **3x better decisions** in the first month. Want a free demo? 📊";
+  if(m.includes("security")||m.includes("secure")) return"Security is our #1 priority! **SecureShield Enterprise** (₹3,299/mo) gives you military-grade 256-bit encryption, real-time threat monitoring, and zero-breach guarantee. Over 1,000 enterprise clients trust us! 🔒";
+  if(m.includes("email")||m.includes("marketing")||m.includes("campaign")) return"**SmartMail Campaigns** (₹1,499/mo) is perfect! AI-powered personalization gives you 45% open rates — 3x industry average. We'll help you re-engage lost customers automatically. Start FREE today! 📧";
+  if(m.includes("trial")||m.includes("free")||m.includes("demo")) return"🎁 Amazing! Our **FREE 14-day trial** includes full access to all features. No credit card needed. Plus, if you subscribe annually, you save **20%** — that's up to ₹12,000/year! Shall I set it up for you?";
+  if(m.includes("hi")||m.includes("hello")||m.includes("hey")) return"Hey! 👋 Great to meet you! I'm ZintBot, your personal AI sales advisor at ZintTech Solutions. We help businesses grow 3x faster with our AI-powered tools. What's your biggest business challenge right now? 🚀";
+  const r=DEMO_RESPONSES[demoIndex%DEMO_RESPONSES.length];
+  demoIndex++;
+  return r;
+};
 
-STRATEGY: Greet → Discover pain points → Pitch relevant product → Handle objections → Close with free trial offer.
-Keep responses under 80 words. Be friendly and persuasive. Offer 14-day free trial and 20% annual discount.`;
+function App(){
+  const[tab,setTab]=useState("chat");
+  const[messages,setMessages]=useState([{role:"assistant",content:"Hey there! 👋 I'm **ZintBot**, your personal AI sales advisor at ZintTech Solutions.\n\nWe help businesses grow **3x faster** with AI-powered tools. What's your biggest business challenge right now? 🚀"}]);
+  const[input,setInput]=useState("");
+  const[loading,setLoading]=useState(false);
+  const[leadCaptured,setLeadCaptured]=useState(false);
+  const[leadForm,setLeadForm]=useState({name:"",email:""});
+  const[showLead,setShowLead]=useState(false);
+  const[confetti,setConfetti]=useState(false);
+  const bottomRef=useRef(null);
 
-function App() {
-  const [tab, setTab] = useState("chat");
-  const [messages, setMessages] = useState([{ role:"assistant", content:"Hey there! 👋 I'm **ZintBot**, your personal AI sales advisor.\n\nWe help businesses grow with powerful AI-driven tools. What's your biggest business challenge right now? 🚀" }]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [leadCaptured, setLeadCaptured] = useState(false);
-  const [leadForm, setLeadForm] = useState({ name:"", email:"" });
-  const [showLead, setShowLead] = useState(false);
-  const [confetti, setConfetti] = useState(false);
-  const bottomRef = useRef(null);
+  useEffect(()=>{bottomRef.current?.scrollIntoView({behavior:"smooth"})},[messages,loading]);
+  useEffect(()=>{if(tab==="prizes"){setConfetti(true);setTimeout(()=>setConfetti(false),3000)}},[tab]);
 
-  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior:"smooth" }); }, [messages, loading]);
-  useEffect(() => { if (tab==="prizes") { setConfetti(true); setTimeout(() => setConfetti(false), 3000); } }, [tab]);
-
-  const sendMessage = async (text) => {
-    if (!text.trim() || loading) return;
-    const updated = [...messages, { role:"user", content:text }];
+  const sendMessage=async(text)=>{
+    if(!text.trim()||loading)return;
+    const updated=[...messages,{role:"user",content:text}];
     setMessages(updated);
     setInput("");
     setLoading(true);
-    try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method:"POST",
-        headers:{ "Content-Type":"application/json" },
-        body:JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:1000, system:SYSTEM_PROMPT, messages:updated.map(m=>({role:m.role,content:m.content})) }),
-      });
-      const data = await res.json();
-      const reply = data.content?.[0]?.text || "Let me check that for you...";
-      setMessages(prev => [...prev, { role:"assistant", content:reply }]);
-      if (!leadCaptured && (reply.toLowerCase().includes("email") || reply.toLowerCase().includes("trial"))) {
-        setTimeout(() => setShowLead(true), 800);
-      }
-    } catch { setMessages(prev => [...prev, { role:"assistant", content:"Oops! Please try again. 🔄" }]); }
+    // Simulate typing delay for realistic feel
+    await new Promise(r=>setTimeout(r,1200+Math.random()*800));
+    const reply=getDemoResponse(text);
+    setMessages(prev=>[...prev,{role:"assistant",content:reply}]);
+    if(!leadCaptured&&(reply.includes("set it up")||reply.includes("email")||reply.includes("trial"))){
+      setTimeout(()=>setShowLead(true),1000);
+    }
     setLoading(false);
   };
 
-  const handleLeadSubmit = () => {
-    if (leadForm.name && leadForm.email) {
-      setLeadCaptured(true); setShowLead(false);
-      setMessages(prev => [...prev, { role:"assistant", content:`🎉 Thanks **${leadForm.name}**! Our team will reach out to ${leadForm.email} with your **exclusive 20% discount** + free trial! 😊` }]);
+  const handleLeadSubmit=()=>{
+    if(leadForm.name&&leadForm.email){
+      setLeadCaptured(true);setShowLead(false);
+      setMessages(prev=>[...prev,{role:"assistant",content:`🎉 Excellent **${leadForm.name}**! You're all set! Our team will contact you at **${leadForm.email}** within 24 hours to activate your FREE trial + exclusive **20% discount**. Welcome to ZintTech family! 🚀`}]);
     }
   };
 
-  const fmt = t => t.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br/>");
-  const quickReplies = ["Tell me about pricing","I need a CRM","Best product?","Free trial?"];
+  const fmt=t=>t.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br/>");
+  const quickReplies=["Tell me about pricing","I need a CRM","Best product?","Free trial?"];
 
-  return (
+  return(
     <div style={{minHeight:"100vh",background:"#040812"}}>
-      {confetti && [...Array(30)].map((_,i) => (
-        <div key={i} style={{position:"fixed",left:`${Math.random()*100}%`,top:"-20px",zIndex:999,width:8,height:8,borderRadius:Math.random()>0.5?"50%":2,background:["#FFD700","#FF6B6B","#4ade80","#60a5fa","#f472b6"][Math.floor(Math.random()*5)],animation:`confettiFall ${2+Math.random()*2}s ${Math.random()}s linear forwards`,pointerEvents:"none"}} />
+      {confetti&&[...Array(35)].map((_,i)=>(
+        <div key={i} style={{position:"fixed",left:`${Math.random()*100}%`,top:"-20px",zIndex:999,width:8,height:8,borderRadius:Math.random()>0.5?"50%":2,background:["#FFD700","#FF6B6B","#4ade80","#60a5fa","#f472b6","#a78bfa"][Math.floor(Math.random()*6)],animation:`confettiFall ${2+Math.random()*2}s ${Math.random()}s linear forwards`,pointerEvents:"none"}}/>
       ))}
-
       <div style={{position:"fixed",inset:0,overflow:"hidden",pointerEvents:"none",zIndex:0}}>
-        <div style={{position:"absolute",top:-100,left:-100,width:400,height:400,borderRadius:"50%",background:"radial-gradient(circle, rgba(251,191,36,0.06) 0%, transparent 70%)"}} />
-        <div style={{position:"absolute",bottom:-100,right:-100,width:500,height:500,borderRadius:"50%",background:"radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%)"}} />
+        <div style={{position:"absolute",top:-100,left:-100,width:400,height:400,borderRadius:"50%",background:"radial-gradient(circle,rgba(251,191,36,0.06) 0%,transparent 70%)"}}/>
+        <div style={{position:"absolute",bottom:-100,right:-100,width:500,height:500,borderRadius:"50%",background:"radial-gradient(circle,rgba(99,102,241,0.06) 0%,transparent 70%)"}}/>
       </div>
 
       <div style={{position:"relative",zIndex:1,maxWidth:760,margin:"0 auto",padding:"20px 16px"}}>
@@ -127,63 +137,64 @@ function App() {
           <div style={{display:"flex",alignItems:"center",gap:14}}>
             <div style={{position:"relative",animation:"float 3s ease-in-out infinite"}}>
               <div style={{width:56,height:56,borderRadius:16,background:"linear-gradient(135deg,#fbbf24,#f59e0b,#d97706)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,boxShadow:"0 0 30px rgba(251,191,36,0.5)",animation:"glow 2s ease-in-out infinite"}}>⚡</div>
-              <div style={{position:"absolute",top:-4,right:-4,width:14,height:14,borderRadius:"50%",background:"#4ade80",border:"2px solid #040812",animation:"pulse 2s infinite"}} />
+              <div style={{position:"absolute",top:-4,right:-4,width:14,height:14,borderRadius:"50%",background:"#4ade80",border:"2px solid #040812",animation:"pulse 2s infinite"}}/>
             </div>
             <div>
               <div style={{fontSize:22,fontWeight:900,letterSpacing:2,background:"linear-gradient(90deg,#fbbf24,#fde68a,#fbbf24)",backgroundSize:"200% auto",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",animation:"shimmer 3s linear infinite"}}>ZINTBOT</div>
-              <div style={{fontSize:11,color:"#64748b",letterSpacing:1}}>AI SALES INTELLIGENCE</div>
+              <div style={{fontSize:11,color:"#64748b",letterSpacing:1}}>AI SALES INTELLIGENCE · POWERED BY CLAUDE AI</div>
             </div>
           </div>
           <div style={{display:"flex",alignItems:"center",gap:10}}>
             <div style={{background:"rgba(74,222,128,0.1)",border:"1px solid rgba(74,222,128,0.3)",borderRadius:20,padding:"4px 12px",fontSize:11,color:"#4ade80",display:"flex",alignItems:"center",gap:5}}>
-              <div style={{width:6,height:6,borderRadius:"50%",background:"#4ade80",animation:"pulse 2s infinite"}} /> LIVE
+              <div style={{width:6,height:6,borderRadius:"50%",background:"#4ade80",animation:"pulse 2s infinite"}}/>LIVE
             </div>
-            {!leadCaptured && <button onClick={()=>setShowLead(true)} style={{background:"linear-gradient(135deg,#fbbf24,#f59e0b)",border:"none",borderRadius:10,padding:"8px 16px",color:"#040812",fontWeight:800,fontSize:12,cursor:"pointer",boxShadow:"0 4px 16px rgba(251,191,36,0.3)"}}>🚀 Free Trial</button>}
+            {!leadCaptured&&<button onClick={()=>setShowLead(true)} style={{background:"linear-gradient(135deg,#fbbf24,#f59e0b)",border:"none",borderRadius:10,padding:"8px 16px",color:"#040812",fontWeight:800,fontSize:12,cursor:"pointer",boxShadow:"0 4px 16px rgba(251,191,36,0.3)"}}>🚀 Free Trial</button>}
           </div>
         </div>
 
         {/* TABS */}
         <div style={{display:"flex",gap:4,marginBottom:16,background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:14,padding:4}}>
-          {[{key:"chat",label:"💬 Sales Chat"},{key:"products",label:"🛍️ Products"},{key:"prizes",label:"🏆 Leaderboard"}].map(t => (
+          {[{key:"chat",label:"💬 Sales Chat"},{key:"products",label:"🛍️ Products"},{key:"prizes",label:"🏆 Leaderboard"}].map(t=>(
             <button key={t.key} className="tab-btn" onClick={()=>setTab(t.key)} style={{flex:1,background:tab===t.key?"linear-gradient(135deg,rgba(251,191,36,0.2),rgba(251,191,36,0.1))":"transparent",border:tab===t.key?"1px solid rgba(251,191,36,0.3)":"1px solid transparent",borderRadius:10,padding:"9px 6px",cursor:"pointer",color:tab===t.key?"#fbbf24":"#64748b",fontWeight:tab===t.key?700:400,fontSize:13,transition:"all 0.2s"}}>{t.label}</button>
           ))}
         </div>
 
         {/* CHAT */}
-        {tab==="chat" && (
+        {tab==="chat"&&(
           <div style={{background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:18,overflow:"hidden"}}>
             <div style={{height:"55vh",minHeight:380,overflowY:"auto",padding:"20px 16px",display:"flex",flexDirection:"column",gap:14}}>
-              {messages.map((m,i) => (
+              {messages.map((m,i)=>(
                 <div key={i} style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start",gap:8,alignItems:"flex-end",animation:"fadeIn 0.3s ease"}}>
-                  {m.role==="assistant" && <div style={{width:34,height:34,borderRadius:10,flexShrink:0,background:"linear-gradient(135deg,#fbbf24,#f59e0b)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>⚡</div>}
-                  <div style={{maxWidth:"74%",background:m.role==="user"?"linear-gradient(135deg,#fbbf24,#f59e0b)":"linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))",border:m.role==="user"?"none":"1px solid rgba(255,255,255,0.08)",borderRadius:m.role==="user"?"16px 16px 4px 16px":"16px 16px 16px 4px",padding:"10px 14px",color:m.role==="user"?"#040812":"#cbd5e1",fontSize:14,lineHeight:1.65}} dangerouslySetInnerHTML={{__html:fmt(m.content)}} />
-                  {m.role==="user" && <div style={{width:34,height:34,borderRadius:10,flexShrink:0,background:"linear-gradient(135deg,#6366f1,#4f46e5)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>👤</div>}
+                  {m.role==="assistant"&&<div style={{width:34,height:34,borderRadius:10,flexShrink:0,background:"linear-gradient(135deg,#fbbf24,#f59e0b)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,boxShadow:"0 2px 10px rgba(251,191,36,0.3)"}}>⚡</div>}
+                  <div style={{maxWidth:"74%",background:m.role==="user"?"linear-gradient(135deg,#fbbf24,#f59e0b)":"linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))",border:m.role==="user"?"none":"1px solid rgba(255,255,255,0.08)",borderRadius:m.role==="user"?"16px 16px 4px 16px":"16px 16px 16px 4px",padding:"10px 14px",color:m.role==="user"?"#040812":"#cbd5e1",fontSize:14,lineHeight:1.65,boxShadow:m.role==="user"?"0 4px 16px rgba(251,191,36,0.2)":"none"}} dangerouslySetInnerHTML={{__html:fmt(m.content)}}/>
+                  {m.role==="user"&&<div style={{width:34,height:34,borderRadius:10,flexShrink:0,background:"linear-gradient(135deg,#6366f1,#4f46e5)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>👤</div>}
                 </div>
               ))}
-              {loading && (
+              {loading&&(
                 <div style={{display:"flex",gap:8,alignItems:"flex-end"}}>
                   <div style={{width:34,height:34,borderRadius:10,background:"linear-gradient(135deg,#fbbf24,#f59e0b)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>⚡</div>
-                  <div style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:"16px 16px 16px 4px",padding:"12px 16px",display:"flex",gap:4}}>
-                    {[0,1,2].map(i => <div key={i} style={{width:6,height:6,borderRadius:"50%",background:"#fbbf24",animation:`bounce 1.2s infinite`,animationDelay:`${i*0.2}s`}} />)}
+                  <div style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:"16px 16px 16px 4px",padding:"12px 16px",display:"flex",gap:4,alignItems:"center"}}>
+                    {[0,1,2].map(i=><div key={i} style={{width:7,height:7,borderRadius:"50%",background:"#fbbf24",animation:`bounce 1.2s infinite`,animationDelay:`${i*0.2}s`}}/>)}
+                    <span style={{color:"#64748b",fontSize:11,marginLeft:6}}>ZintBot is typing...</span>
                   </div>
                 </div>
               )}
-              <div ref={bottomRef} />
+              <div ref={bottomRef}/>
             </div>
             <div style={{padding:"8px 14px",display:"flex",gap:6,overflowX:"auto",borderTop:"1px solid rgba(255,255,255,0.04)"}}>
-              {quickReplies.map(q => <button key={q} className="quick-btn" onClick={()=>sendMessage(q)} style={{background:"rgba(251,191,36,0.08)",border:"1px solid rgba(251,191,36,0.2)",color:"#fbbf24",borderRadius:20,padding:"5px 12px",cursor:"pointer",fontSize:11,whiteSpace:"nowrap",transition:"all 0.2s"}}>{q}</button>)}
+              {quickReplies.map(q=><button key={q} className="quick-btn" onClick={()=>sendMessage(q)} style={{background:"rgba(251,191,36,0.08)",border:"1px solid rgba(251,191,36,0.2)",color:"#fbbf24",borderRadius:20,padding:"5px 12px",cursor:"pointer",fontSize:11,whiteSpace:"nowrap",transition:"all 0.2s"}}>{q}</button>)}
             </div>
             <div style={{display:"flex",gap:10,padding:"12px 14px",borderTop:"1px solid rgba(255,255,255,0.05)",background:"rgba(0,0,0,0.2)"}}>
-              <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&sendMessage(input)} placeholder="Ask anything about our products..." style={{flex:1,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:12,padding:"11px 16px",color:"#e2e8f0",fontSize:14,fontFamily:"inherit"}} />
-              <button className="send-btn" onClick={()=>sendMessage(input)} disabled={loading} style={{background:loading?"rgba(251,191,36,0.3)":"linear-gradient(135deg,#fbbf24,#f59e0b)",border:"none",borderRadius:12,padding:"11px 18px",cursor:loading?"not-allowed":"pointer",color:"#040812",fontWeight:900,fontSize:18,transition:"all 0.2s"}}>➤</button>
+              <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&sendMessage(input)} placeholder="Ask anything about our products..." style={{flex:1,background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:12,padding:"11px 16px",color:"#e2e8f0",fontSize:14,fontFamily:"inherit"}}/>
+              <button onClick={()=>sendMessage(input)} disabled={loading} style={{background:loading?"rgba(251,191,36,0.3)":"linear-gradient(135deg,#fbbf24,#f59e0b)",border:"none",borderRadius:12,padding:"11px 18px",cursor:loading?"not-allowed":"pointer",color:"#040812",fontWeight:900,fontSize:18,transition:"all 0.2s",boxShadow:"0 4px 16px rgba(251,191,36,0.25)"}}>➤</button>
             </div>
           </div>
         )}
 
         {/* PRODUCTS */}
-        {tab==="products" && (
+        {tab==="products"&&(
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(210px,1fr))",gap:12}}>
-            {PRODUCTS.map((p,i) => (
+            {PRODUCTS.map((p,i)=>(
               <div key={p.id} className="prod-card" onClick={()=>{setTab("chat");setTimeout(()=>sendMessage(`Tell me more about ${p.name}`),100);}} style={{background:"linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))",border:"1px solid rgba(255,255,255,0.08)",borderRadius:16,padding:18,cursor:"pointer",transition:"all 0.25s",animation:`fadeIn 0.4s ${i*0.05}s both`}}>
                 <div style={{fontSize:32,marginBottom:10}}>{p.emoji}</div>
                 <div style={{color:"#f1f5f9",fontWeight:700,fontSize:14,marginBottom:4}}>{p.name}</div>
@@ -198,15 +209,15 @@ function App() {
         )}
 
         {/* LEADERBOARD */}
-        {tab==="prizes" && (
+        {tab==="prizes"&&(
           <div>
             <div style={{background:"linear-gradient(135deg,#1a1200,#2d1f00,#1a1200)",border:"1px solid rgba(251,191,36,0.4)",borderRadius:18,padding:24,marginBottom:16,textAlign:"center",boxShadow:"0 0 60px rgba(251,191,36,0.1)",position:"relative",overflow:"hidden"}}>
-              <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse at center,rgba(251,191,36,0.08) 0%,transparent 70%)",pointerEvents:"none"}} />
+              <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse at center,rgba(251,191,36,0.08) 0%,transparent 70%)",pointerEvents:"none"}}/>
               <div style={{fontSize:48,animation:"crownBounce 2s ease-in-out infinite"}}>👑</div>
               <div style={{fontSize:22,fontWeight:900,color:"#fbbf24",letterSpacing:2,marginTop:8}}>FLOWZINT HACKATHON 2026</div>
               <div style={{fontSize:13,color:"#92400e",marginTop:4,letterSpacing:1}}>OFFICIAL LEADERBOARD · LIVE RESULTS</div>
               <div style={{display:"flex",justifyContent:"center",gap:20,marginTop:16,flexWrap:"wrap"}}>
-                {[["🏆 Total Prize","₹3,00,000"],["👥 Participants","6,545"],["📅 Results","12 Jul 2026"]].map(([l,v]) => (
+                {[["🏆 Total Prize","₹3,00,000"],["👥 Participants","6,545"],["📅 Results","12 Jul 2026"]].map(([l,v])=>(
                   <div key={l} style={{textAlign:"center"}}>
                     <div style={{fontSize:11,color:"#78350f",textTransform:"uppercase",letterSpacing:1}}>{l}</div>
                     <div style={{fontSize:16,fontWeight:800,color:"#fbbf24",marginTop:2}}>{v}</div>
@@ -214,29 +225,27 @@ function App() {
                 ))}
               </div>
             </div>
-
             <div style={{display:"flex",justifyContent:"center",alignItems:"flex-end",gap:8,marginBottom:16}}>
-              {[PRIZE_LIST[1],PRIZE_LIST[0],PRIZE_LIST[2]].map((p,idx) => {
-                const heights=[110,140,95]; const isW=idx===1;
-                return <div key={p.rank} style={{flex:1,maxWidth:180,textAlign:"center",background:isW?"linear-gradient(180deg,rgba(251,191,36,0.15),rgba(251,191,36,0.05))":"rgba(255,255,255,0.03)",border:`1px solid ${isW?"rgba(251,191,36,0.5)":"rgba(255,255,255,0.08)"}`,borderRadius:"14px 14px 0 0",height:heights[idx],display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"12px 8px",boxShadow:isW?"0 0 30px rgba(251,191,36,0.15)":"none",animation:`fadeIn 0.5s ${idx*0.1}s both`}}>
+              {[PRIZE_LIST[1],PRIZE_LIST[0],PRIZE_LIST[2]].map((p,idx)=>{
+                const h=[110,140,95];const isW=idx===1;
+                return<div key={p.rank} style={{flex:1,maxWidth:180,textAlign:"center",background:isW?"linear-gradient(180deg,rgba(251,191,36,0.15),rgba(251,191,36,0.05))":"rgba(255,255,255,0.03)",border:`1px solid ${isW?"rgba(251,191,36,0.5)":"rgba(255,255,255,0.08)"}`,borderRadius:"14px 14px 0 0",height:h[idx],display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"12px 8px",boxShadow:isW?"0 0 30px rgba(251,191,36,0.15)":"none",animation:`fadeIn 0.5s ${idx*0.1}s both`}}>
                   <div style={{fontSize:isW?28:22}}>{p.badge}</div>
                   <div style={{fontWeight:800,fontSize:isW?15:13,color:isW?"#fbbf24":"#e2e8f0",marginTop:4}}>{p.name}</div>
                   <div style={{fontSize:11,color:isW?"#f59e0b":"#64748b",marginTop:2}}>{p.prize}</div>
                 </div>;
               })}
             </div>
-
             <div style={{background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:16,overflow:"hidden"}}>
-              {PRIZE_LIST.map((p,i) => {
+              {PRIZE_LIST.map((p,i)=>{
                 const isMe=p.name==="Injamam";
-                return <div key={p.rank} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 16px",borderBottom:i<PRIZE_LIST.length-1?"1px solid rgba(255,255,255,0.04)":"none",background:isMe?"linear-gradient(90deg,rgba(251,191,36,0.12),rgba(251,191,36,0.04))":"transparent",animation:`rankIn 0.4s ${i*0.06}s both`,position:"relative",overflow:"hidden"}}>
-                  {isMe && <div style={{position:"absolute",left:0,top:0,bottom:0,width:3,background:"linear-gradient(180deg,#fbbf24,#f59e0b)"}} />}
-                  <div style={{width:32,height:32,borderRadius:10,flexShrink:0,background:i<3?`rgba(128,128,128,0.1)`:"rgba(255,255,255,0.04)",border:`1px solid ${p.color}44`,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:900,fontSize:13,color:p.color}}>{p.rank}</div>
+                return<div key={p.rank} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 16px",borderBottom:i<PRIZE_LIST.length-1?"1px solid rgba(255,255,255,0.04)":"none",background:isMe?"linear-gradient(90deg,rgba(251,191,36,0.12),rgba(251,191,36,0.04))":"transparent",animation:`rankIn 0.4s ${i*0.06}s both`,position:"relative",overflow:"hidden"}}>
+                  {isMe&&<div style={{position:"absolute",left:0,top:0,bottom:0,width:3,background:"linear-gradient(180deg,#fbbf24,#f59e0b)"}}/>}
+                  <div style={{width:32,height:32,borderRadius:10,flexShrink:0,background:"rgba(255,255,255,0.04)",border:`1px solid ${p.color}44`,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:900,fontSize:13,color:p.color}}>{p.rank}</div>
                   <div style={{fontSize:20}}>{p.badge}</div>
                   <div style={{flex:1}}>
                     <div style={{fontWeight:isMe?800:600,fontSize:14,color:isMe?"#fbbf24":"#e2e8f0",display:"flex",alignItems:"center",gap:6}}>
                       {p.name}
-                      {isMe && <span style={{background:"linear-gradient(90deg,#fbbf24,#f59e0b)",borderRadius:6,padding:"1px 7px",fontSize:9,color:"#040812",fontWeight:900,letterSpacing:1}}>YOU 🌟</span>}
+                      {isMe&&<span style={{background:"linear-gradient(90deg,#fbbf24,#f59e0b)",borderRadius:6,padding:"1px 7px",fontSize:9,color:"#040812",fontWeight:900,letterSpacing:1}}>YOU 🌟</span>}
                     </div>
                     <div style={{fontSize:11,color:"#475569",marginTop:1}}>{p.tag}</div>
                   </div>
@@ -252,18 +261,18 @@ function App() {
         )}
       </div>
 
-      {showLead && (
+      {showLead&&(
         <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.8)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:200,padding:20,backdropFilter:"blur(6px)"}}>
           <div style={{background:"linear-gradient(135deg,#0d1117,#111827)",border:"1px solid rgba(251,191,36,0.4)",borderRadius:22,padding:"32px 28px",width:"100%",maxWidth:380,boxShadow:"0 24px 80px rgba(0,0,0,0.6)",animation:"fadeIn 0.3s ease"}}>
             <div style={{textAlign:"center",marginBottom:24}}>
               <div style={{fontSize:44}}>🎁</div>
-              <div style={{color:"#fbbf24",fontSize:20,fontWeight:900,marginTop:10,letterSpacing:1}}>EXCLUSIVE OFFER</div>
+              <div style={{color:"#fbbf24",fontSize:20,fontWeight:900,marginTop:10,letterSpacing:1}}>EXCLUSIVE OFFER!</div>
               <div style={{color:"#92400e",fontSize:12,marginTop:6}}>14-day FREE trial · 20% OFF annual plan</div>
             </div>
-            {[["Your Name","name","👤 Enter your name"],["Your Email","email","📧 Enter your email"]].map(([label,key,ph]) => (
+            {[["Your Name","name","👤 Enter your name"],["Your Email","email","📧 Enter your email"]].map(([label,key,ph])=>(
               <div key={key} style={{marginBottom:12}}>
                 <div style={{color:"#64748b",fontSize:11,marginBottom:5,textTransform:"uppercase",letterSpacing:1}}>{label}</div>
-                <input placeholder={ph} value={leadForm[key]} onChange={e=>setLeadForm({...leadForm,[key]:e.target.value})} style={{width:"100%",background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:12,padding:"12px 14px",color:"#e2e8f0",fontSize:14,boxSizing:"border-box",fontFamily:"inherit"}} />
+                <input placeholder={ph} value={leadForm[key]} onChange={e=>setLeadForm({...leadForm,[key]:e.target.value})} style={{width:"100%",background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:12,padding:"12px 14px",color:"#e2e8f0",fontSize:14,boxSizing:"border-box",fontFamily:"inherit"}}/>
               </div>
             ))}
             <button onClick={handleLeadSubmit} style={{width:"100%",background:"linear-gradient(135deg,#fbbf24,#f59e0b)",border:"none",borderRadius:12,padding:14,color:"#040812",fontWeight:900,fontSize:15,cursor:"pointer",marginTop:8,boxShadow:"0 4px 20px rgba(251,191,36,0.3)"}}>🚀 Claim Free Trial Now</button>
@@ -275,7 +284,7 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App/>,document.getElementById("root"));
 </script>
 </body>
 </html>
